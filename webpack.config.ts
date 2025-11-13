@@ -1,6 +1,7 @@
 import path from 'path'
 import webpack from 'webpack'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
+import ImageMinimizerPlugin from 'image-minimizer-webpack-plugin'
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin'
 import ReactRefreshTypeScript from 'react-refresh-typescript'
@@ -21,7 +22,7 @@ export default (env: EnvVariables) => {
     entry: path.resolve(__dirname, 'src', 'main.tsx'),
     module: {
       rules: [
-          {
+        {
           test: /\.tsx?$|\.jsx?$/,
           use: {
             loader: 'ts-loader',
@@ -35,12 +36,19 @@ export default (env: EnvVariables) => {
           exclude: /node_modules/,
         },
         {
+          test: /\.css$/i,
+          use: [ 'style-loader', 'css-loader', 'postcss-loader'],
+        },
+        {
           test: /\.(woff)$/i,
           type: 'asset/resource',
         },
         {
-          test: /\.(png|jpg|jpeg|gif)$/i,
+          test: /\.(png|jpg|jpeg|gif|webp)$/i,
           type: 'asset/resource',
+          generator: {
+            filename: 'assets/images/[name].[hash][ext][query]',
+          },
         },
         {
           test: /\.svg$/i,
@@ -66,6 +74,33 @@ export default (env: EnvVariables) => {
         },
       ],
     },
+    optimization: {
+      minimize: true,
+      minimizer: [
+        "...",
+        new ImageMinimizerPlugin({
+          deleteOriginalAssets: false,
+          generator: [
+            {
+              preset: 'webp',
+              implementation: ImageMinimizerPlugin.imageminGenerate,
+              options: {
+                plugins: ['imagemin-webp'],
+              },
+            },
+          ],
+          minimizer: {
+            implementation: ImageMinimizerPlugin.imageminMinify,
+            options: {
+              plugins: [
+                ['jpegtran', { progressive: true }],
+                ['svgo', { plugins: [{ name: 'removeViewBox', active: false }] }]
+              ],
+            },
+          },
+        }),
+      ],
+    },
     resolve: {
       extensions: ['.tsx', '.ts', '.jsx', '.js'],
       alias: {
@@ -86,6 +121,7 @@ export default (env: EnvVariables) => {
     ],
     devtool: isDev ? 'inline-source-map' : false,
     devServer: isDev ? {
+      historyApiFallback: true,
       static: {
         directory: path.resolve(__dirname, 'public'),
       },
@@ -93,7 +129,6 @@ export default (env: EnvVariables) => {
       port: 3000,
       open: true,
       hot: true,
-      historyApiFallback: true
     } : undefined,
   }
   return config
