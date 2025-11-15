@@ -3,7 +3,7 @@ import { IChildProps } from '@/types/propTypes'
 
 export function Main({ children } : IChildProps) {
   return (
-    <AppShell.Main>
+    <AppShell.Main display="flex">
       { children }
     </AppShell.Main>
   )

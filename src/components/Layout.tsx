@@ -6,14 +6,14 @@ import { Navigation } from '@/components/Navigation'
 import { Header } from '@/components/Header'
 
 export function Layout() {
-  const [opened] = useDisclosure();
+  const [opened, { toggle }] = useDisclosure();
 
   return (
     <AppShell
       padding="md"
       header={{ height: { base: 60, md: 70, lg: 80 } }}
       navbar={{
-        width: { base: 200, md: 300, lg: 400 },
+        width: '250',
         breakpoint: 'sm',
         collapsed: { mobile: !opened },
       }}
@@ -24,5 +24,5 @@ export function Layout() {
         <Outlet />
       </Main>
     </AppShell>
-  );
+  )
 }
