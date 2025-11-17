@@ -1,4 +1,4 @@
-export const baseURL: string = 'https://dummyjson.com'
+export const BASE_URL: string = "https://dummyjson.com"
 
-export const recipesEndpoint: string = '/recipes'
-export const recipeEndpoint: string = '/recipes/'
+export const RECIPES_ENDPOINT: string = "/recipes"
+export const RECIPE_ENDPOINT: string = "/recipes/"

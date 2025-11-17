@@ -10,21 +10,37 @@ export function RecipePage() {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const { id } = useParams<string>()
-  const { data: recipe, isLoading, error } = useAppSelector((state) => state.recipe)
+  const {
+    data: recipe,
+    isLoading,
+    error,
+  } = useAppSelector((state) => state.recipe)
 
   useEffect(() => {
-    dispatch(fetchRecipe(Number(id)))
+    if (id && /^\d+$/.test(id)) {
+      dispatch(fetchRecipe(Number(id)))
+    }
   }, [dispatch, id])
 
-  if(isLoading) return <BootLoader />
+  useEffect(() => {
+    if (id && !/^\d+$/.test(id)) {
+      navigate('/error', { replace: true })
+    }
+  }, [navigate, id])
 
-  if(error) navigate('/error')
+  useEffect(() => {
+    if (error) {
+      navigate('/error', { replace: true, state: { errorMessage: error } })
+    }
+  }, [error, navigate])
 
-  if(!recipe) return <PageTitle>Recipe not found</PageTitle>
+  if (isLoading || error || (id && !/^\d+$/.test(id))) return <BootLoader />
 
-  return(
+  if (!recipe) return <PageTitle>Recipe not found</PageTitle>
+
+  return (
     <>
-      <RecipeInfo key={recipe.id} { ...recipe } />
+      <RecipeInfo key={recipe.id} {...recipe} />
     </>
   )
 }

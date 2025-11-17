@@ -17,7 +17,6 @@ const initialState: IRecipesState = {
 export const fetchRecipes = createAsyncThunk('recipes/fetchRecipes', async() => {
   const data = await requestRecipes()
 
-  console.log(data)
   return data
 })
 
@@ -42,4 +41,4 @@ export const recipesSlice = createSlice({
   }
 })
 
-export const recipesReducer =recipesSlice.reducer
+export const recipesReducer = recipesSlice.reducer

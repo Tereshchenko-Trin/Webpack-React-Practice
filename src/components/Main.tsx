@@ -1,10 +1,5 @@
 import { AppShell } from '@mantine/core'
-import { IChildProps } from '@/types/propTypes'
 
-export function Main({ children } : IChildProps) {
-  return (
-    <AppShell.Main display="flex">
-      { children }
-    </AppShell.Main>
-  )
+export function Main({ children }: { children: React.ReactNode }) {
+  return <AppShell.Main>{children}</AppShell.Main>
 }

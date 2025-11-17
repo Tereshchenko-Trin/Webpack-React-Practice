@@ -14,7 +14,6 @@ interface EnvVariables {
 }
 
 export default (env: EnvVariables) => {
-
   const isDev = env.mode === 'development'
 
   const config: webpack.Configuration = {
@@ -31,13 +30,13 @@ export default (env: EnvVariables) => {
               getCustomTransformers: () => ({
                 before: [isDev && ReactRefreshTypeScript()].filter(Boolean),
               }),
-            }
+            },
           },
           exclude: /node_modules/,
         },
         {
           test: /\.css$/i,
-          use: [ 'style-loader', 'css-loader', 'postcss-loader'],
+          use: ['style-loader', 'css-loader', 'postcss-loader'],
         },
         {
           test: /\.(woff)$/i,
@@ -54,22 +53,22 @@ export default (env: EnvVariables) => {
           test: /\.svg$/i,
           issuer: /\.[jt]sx?$/,
           use: [
-            { 
-              loader: '@svgr/webpack', 
-              options: { 
+            {
+              loader: '@svgr/webpack',
+              options: {
                 icon: true,
                 svgoConfig: {
                   plugins: [
                     {
                       name: 'convertColors',
                       params: {
-                        currentColor: true
-                      }
-                    }
-                  ]
-                }
-              } 
-            }
+                        currentColor: true,
+                      },
+                    },
+                  ],
+                },
+              },
+            },
           ],
         },
       ],
@@ -77,7 +76,7 @@ export default (env: EnvVariables) => {
     optimization: {
       minimize: true,
       minimizer: [
-        "...",
+        '...',
         new ImageMinimizerPlugin({
           deleteOriginalAssets: false,
           generator: [
@@ -94,7 +93,10 @@ export default (env: EnvVariables) => {
             options: {
               plugins: [
                 ['jpegtran', { progressive: true }],
-                ['svgo', { plugins: [{ name: 'removeViewBox', active: false }] }]
+                [
+                  'svgo',
+                  { plugins: [{ name: 'removeViewBox', active: false }] },
+                ],
               ],
             },
           },
@@ -104,32 +106,35 @@ export default (env: EnvVariables) => {
     resolve: {
       extensions: ['.tsx', '.ts', '.jsx', '.js'],
       alias: {
-        '@': path.resolve(__dirname, 'src')
+        '@': path.resolve(__dirname, 'src'),
       },
     },
     output: {
       filename: '[name].[contenthash].js',
       path: path.resolve(__dirname, 'build'),
       clean: true,
+      publicPath: '/',
     },
     plugins: [
       new HtmlWebpackPlugin({
-        template: path.resolve(__dirname, 'public', 'index.html')
+        template: path.resolve(__dirname, 'public', 'index.html'),
       }),
       new ForkTsCheckerWebpackPlugin(),
-      new ReactRefreshWebpackPlugin()
+      new ReactRefreshWebpackPlugin(),
     ],
     devtool: isDev ? 'inline-source-map' : false,
-    devServer: isDev ? {
-      historyApiFallback: true,
-      static: {
-        directory: path.resolve(__dirname, 'public'),
-      },
-      compress: true,
-      port: 3000,
-      open: true,
-      hot: true,
-    } : undefined,
+    devServer: isDev
+      ? {
+          historyApiFallback: true,
+          static: {
+            directory: path.resolve(__dirname, 'public'),
+          },
+          compress: true,
+          port: 3000,
+          open: true,
+          hot: true,
+        }
+      : undefined,
   }
   return config
 }

@@ -11,35 +11,35 @@ import { ErrorPage } from '@/pages/ErrorPage'
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <StartPage />
+    element: <StartPage />,
   },
   {
     element: <Layout />,
     children: [
       {
         path: '/main',
-        element: <MainPage />
+        element: <MainPage />,
       },
       {
         path: '/first',
-        element: <FirstPage />
+        element: <FirstPage />,
       },
       {
         path: '/second',
-        element: <SecondPage />
+        element: <SecondPage />,
       },
       {
         path: '/third',
-        element: <ThirdPage />
+        element: <ThirdPage />,
       },
       {
-        path: ':id',
-        element: <RecipePage />
-      }
-    ]
+        path: '/:id',
+        element: <RecipePage />,
+      },
+    ],
   },
   {
     path: '*',
-    element: <ErrorPage />
-  }
+    element: <ErrorPage />,
+  },
 ])

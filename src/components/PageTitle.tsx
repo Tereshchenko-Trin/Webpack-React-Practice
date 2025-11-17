@@ -1,7 +1,6 @@
 import { Title } from '@mantine/core'
-import { IChildProps } from '@/types/propTypes'
 
-export function PageTitle({ children }: IChildProps) {
+export function PageTitle({ children }: {children: React.ReactNode}) {
   return(
     <Title c="black" ta="center" size="h2">{children}</Title>
   )

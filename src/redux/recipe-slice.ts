@@ -21,7 +21,6 @@ export const fetchRecipe = createAsyncThunk('recipe/fetchRecipe', async (id: num
     return (rejectWithValue(data))
   }
 
-  console.log(data)
   return data
 })
 

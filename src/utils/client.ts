@@ -1,12 +1,12 @@
-import axios from 'axios'
-import { baseURL } from '@/config/api'
+import axios from "axios"
+import { BASE_URL } from "@/config/api"
 
-const client = axios.create ({
-  baseURL,
+const client = axios.create({
+  baseURL: BASE_URL,
   timeout: 4000,
   headers: {
-    'Content-Type': 'application/json'
-  }
+    "Content-Type": "application/json",
+  },
 })
 
 const get = client.get

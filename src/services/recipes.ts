@@ -1,15 +1,15 @@
-import { get } from '@/utils/client'
-import { recipesEndpoint } from '@/config/api'
+import { get } from "@/utils/client"
+import { RECIPES_ENDPOINT } from "@/config/api"
 
-export const requestRecipes = async() => {
+export const requestRecipes = async () => {
   try {
-    const response = await get (recipesEndpoint)
+    const response = await get(RECIPES_ENDPOINT)
 
     return response.data
-  } catch(error) {
+  } catch (error) {
     return {
       hasError: error,
-      errorMessage: error.message
+      errorMessage: error.message,
     }
   }
 }

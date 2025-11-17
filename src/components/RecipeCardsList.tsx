@@ -1,15 +1,16 @@
-import { SimpleGrid } from '@mantine/core'
-import { IChildProps } from '@/types/propTypes'
+import { Box } from '@mantine/core'
 
-export function RecipeCardsList({ children }: IChildProps) {
-  return(
-    <div style={{ overflow: 'hidden', maxWidth: '100%' }}>
-      <SimpleGrid
-        cols={{ sm: 1, md: 2, lg: 3, xl: 4 }} 
-        spacing="md"
-      >
-        {children}
-      </SimpleGrid>
-    </div>
+export function RecipeCardsList({ children }: { children: React.ReactNode }) {
+  return (
+    <Box
+      w="100%"
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+        gap: 'var(--mantine-spacing-md)',
+      }}
+    >
+      {children}
+    </Box>
   )
 }
