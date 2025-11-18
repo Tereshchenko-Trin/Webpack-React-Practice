@@ -39,6 +39,10 @@ export const router = createHashRouter([
     ],
   },
   {
+    path: '/error',
+    element: <ErrorPage />,
+  },
+  {
     path: '*',
     element: <ErrorPage />,
   },
@@ -74,6 +78,10 @@ export const router = createHashRouter([
 //         element: <RecipePage />,
 //       },
 //     ],
+//   },
+//   {
+//     path: '/error',
+//     element: <ErrorPage />,
 //   },
 //   {
 //     path: '*',
