@@ -5,6 +5,7 @@ import { fetchRecipe } from '@/redux/recipe-slice'
 import { RecipeInfo } from '@/components/RecipeInfo'
 import { BootLoader } from '@/components/BootLoader'
 import { PageTitle } from '@/components/PageTitle'
+import { isNumId } from '@/utils/idValidation'
 
 export function RecipePage() {
   const dispatch = useAppDispatch()
@@ -17,13 +18,13 @@ export function RecipePage() {
   } = useAppSelector((state) => state.recipe)
 
   useEffect(() => {
-    if (id && /^\d+$/.test(id)) {
+    if (isNumId(id)) {
       dispatch(fetchRecipe(Number(id)))
     }
   }, [dispatch, id])
 
   useEffect(() => {
-    if (id && !/^\d+$/.test(id)) {
+    if (!isNumId(id)) {
       navigate('/error', { replace: true })
     }
   }, [navigate, id])
@@ -34,7 +35,7 @@ export function RecipePage() {
     }
   }, [error, navigate])
 
-  if (isLoading || error || (id && !/^\d+$/.test(id))) return <BootLoader />
+  if (isLoading || error || !isNumId(id)) return <BootLoader />
 
   if (!recipe) return <PageTitle>Recipe not found</PageTitle>
 
