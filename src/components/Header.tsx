@@ -5,7 +5,7 @@ export function Header() {
   const [opened, { toggle }] = useDisclosure()
 
   return (
-    <AppShell.Header>
+    <AppShell.Header p="12">
       <Group h="100%" px="md">
         <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
         Header

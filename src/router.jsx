@@ -1,4 +1,4 @@
-import { createBrowserRouter, createHashRouter } from 'react-router-dom'
+import { createHashRouter } from 'react-router-dom'
 import { StartPage } from '@/pages/StartPage'
 import { Layout } from '@/components/Layout'
 import { MainPage } from '@/pages/MainPage'
@@ -47,44 +47,3 @@ export const router = createHashRouter([
     element: <ErrorPage />,
   },
 ])
-
-// createBrowserRouter doesn't work with gh-pages
-// export const router = createBrowserRouter([
-//   {
-//     path: '/',
-//     element: <StartPage />,
-//   },
-//   {
-//     element: <Layout />,
-//     children: [
-//       {
-//         path: '/main',
-//         element: <MainPage />,
-//       },
-//       {
-//         path: '/first',
-//         element: <FirstPage />,
-//       },
-//       {
-//         path: '/second',
-//         element: <SecondPage />,
-//       },
-//       {
-//         path: '/third',
-//         element: <ThirdPage />,
-//       },
-//       {
-//         path: '/:id',
-//         element: <RecipePage />,
-//       },
-//     ],
-//   },
-//   {
-//     path: '/error',
-//     element: <ErrorPage />,
-//   },
-//   {
-//     path: '*',
-//     element: <ErrorPage />,
-//   },
-// ])
