@@ -13,21 +13,21 @@ export function Navigation() {
         />
         <MantineNavLink
           component={NavLink}
-          to={'/first'}
+          to={'/category/breakfast'}
           color="teal"
-          label="First page"
+          label="Breakfasts"
         />
         <MantineNavLink
           component={NavLink}
-          to={'/second'}
+          to={'/category/lunch'}
           color="teal"
-          label="Second page"
+          label="Lunches"
         />
         <MantineNavLink
           component={NavLink}
-          to={'/third'}
+          to={'/category/dinner'}
           color="teal"
-          label="Third page"
+          label="Dinners"
         />
       </ScrollArea.Autosize>
     </AppShell.Navbar>

@@ -5,9 +5,9 @@ import { Layout } from '@/components/Layout'
 
 const ErrorPage = React.lazy(() => import('@/pages/ErrorPage'))
 const MainPage = React.lazy(() => import('@/pages/MainPage'))
-const FirstPage = React.lazy(() => import('@/pages/FirstPage'))
-const SecondPage = React.lazy(() => import('@/pages/SecondPage'))
-const ThirdPage = React.lazy(() => import('@/pages/ThirdPage'))
+const MealTypeRecipesPage = React.lazy(() =>
+  import('@/pages/MealTypeRecipesPage')
+)
 const RecipePage = React.lazy(() => import('@/pages/RecipePage'))
 
 export const router = createHashRouter([
@@ -23,19 +23,11 @@ export const router = createHashRouter([
         element: <MainPage />,
       },
       {
-        path: '/first',
-        element: <FirstPage />,
+        path: '/category/:mealType',
+        element: <MealTypeRecipesPage />,
       },
       {
-        path: '/second',
-        element: <SecondPage />,
-      },
-      {
-        path: '/third',
-        element: <ThirdPage />,
-      },
-      {
-        path: '/:id',
+        path: '/recipe/:id',
         element: <RecipePage />,
       },
     ],
