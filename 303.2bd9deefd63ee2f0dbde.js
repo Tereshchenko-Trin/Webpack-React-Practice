@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkwebpack_react_practice=self.webpackChunkwebpack_react_practice||[]).push([[303],{3303:(e,c,a)=>{a.r(c),a.d(c,{default:()=>t});var r=a(4848);function t(){return(0,r.jsx)("h1",{children:"Second page"})}}}]);
