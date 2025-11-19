@@ -19,7 +19,11 @@ export function RecipePage() {
 
   useEffect(() => {
     if (isNumId(id)) {
-      dispatch(fetchRecipe(Number(id)))
+      const fetchResult = dispatch(fetchRecipe(Number(id)))
+
+      return () => {
+        fetchResult.abort()
+      }
     }
   }, [dispatch, id])
 
@@ -35,7 +39,9 @@ export function RecipePage() {
     }
   }, [error, navigate])
 
-  if (isLoading || error || !isNumId(id)) return <BootLoader />
+  if (isLoading || error || !isNumId(id)) {
+    return <BootLoader />
+  }
 
   if (!recipe) return <PageTitle>Recipe not found</PageTitle>
 
