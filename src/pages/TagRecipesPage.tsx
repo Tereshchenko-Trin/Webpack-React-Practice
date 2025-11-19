@@ -1,12 +1,12 @@
 import { useParams } from 'react-router-dom'
-import { useGetRecipesByMealTypeQuery } from '@/services/api'
+import { useGetRecipesByTagQuery } from '@/services/api'
 import { IRecipeData, IQueryResult } from '@/types/commonTypes'
 import { RecipeCard } from '@/components/RecipeCard'
 import { RecipeCardsList } from '@/components/RecipeCardsList'
 import { RecipesPageWrapper } from '@/components/RecipesPageWrapper'
 
-export default function MealTypeRecipesPage() {
-  const { mealType } = useParams<{ mealType: string }>()
+export default function TagRecipesPage() {
+  const { tag } = useParams<{ tag: string }>()
 
   function renderCards(recipes: IRecipeData[]) {
     return recipes.map((recipe: IRecipeData) => (
@@ -17,11 +17,9 @@ export default function MealTypeRecipesPage() {
   return (
     <RecipesPageWrapper<IRecipeData[], string>
       queryHook={
-        useGetRecipesByMealTypeQuery as (
-          arg: string
-        ) => IQueryResult<IRecipeData[]>
+        useGetRecipesByTagQuery as (arg: string) => IQueryResult<IRecipeData[]>
       }
-      queryArg={mealType}
+      queryArg={tag}
     >
       {(recipes) => <RecipeCardsList>{renderCards(recipes)}</RecipeCardsList>}
     </RecipesPageWrapper>

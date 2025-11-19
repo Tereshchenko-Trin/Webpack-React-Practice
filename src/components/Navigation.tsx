@@ -29,6 +29,12 @@ export function Navigation() {
           color="teal"
           label="Dinners"
         />
+        <MantineNavLink
+          component={NavLink}
+          to={'/tag/Vegetarian'}
+          color="teal"
+          label="Vegetarian dishes"
+        />
       </ScrollArea.Autosize>
     </AppShell.Navbar>
   )
