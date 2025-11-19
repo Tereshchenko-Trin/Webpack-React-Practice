@@ -1,12 +1,14 @@
+import React from 'react'
 import { createHashRouter } from 'react-router-dom'
 import { StartPage } from '@/pages/StartPage'
 import { Layout } from '@/components/Layout'
-import { MainPage } from '@/pages/MainPage'
-import { FirstPage } from '@/pages/FirstPage'
-import { SecondPage } from '@/pages/SecondPage'
-import { ThirdPage } from '@/pages/ThirdPage'
-import { RecipePage } from '@/pages/RecipePage'
-import { ErrorPage } from '@/pages/ErrorPage'
+
+const ErrorPage = React.lazy(() => import('@/pages/ErrorPage'))
+const MainPage = React.lazy(() => import('@/pages/MainPage'))
+const FirstPage = React.lazy(() => import('@/pages/FirstPage'))
+const SecondPage = React.lazy(() => import('@/pages/SecondPage'))
+const ThirdPage = React.lazy(() => import('@/pages/ThirdPage'))
+const RecipePage = React.lazy(() => import('@/pages/RecipePage'))
 
 export const router = createHashRouter([
   {

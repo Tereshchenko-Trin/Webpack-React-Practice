@@ -1,6 +1,7 @@
 import path from 'path'
 import webpack from 'webpack'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import ImageMinimizerPlugin from 'image-minimizer-webpack-plugin'
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin'
@@ -15,6 +16,7 @@ interface EnvVariables {
 
 export default (env: EnvVariables) => {
   const isDev = env.mode === 'development'
+  const isProd = env.mode === 'production'
 
   const config: webpack.Configuration = {
     mode: env.mode ?? 'development',
@@ -36,7 +38,11 @@ export default (env: EnvVariables) => {
         },
         {
           test: /\.css$/i,
-          use: ['style-loader', 'css-loader', 'postcss-loader'],
+          use: [
+            isProd ? MiniCssExtractPlugin.loader : 'style-loader',
+            'css-loader',
+            'postcss-loader',
+          ],
         },
         {
           test: /\.(woff)$/i,
@@ -84,7 +90,7 @@ export default (env: EnvVariables) => {
               preset: 'webp',
               implementation: ImageMinimizerPlugin.imageminGenerate,
               options: {
-                plugins: ['imagemin-webp'],
+                plugins: [['imagemin-webp', { quality: 70 }]],
               },
             },
           ],
@@ -92,7 +98,7 @@ export default (env: EnvVariables) => {
             implementation: ImageMinimizerPlugin.imageminMinify,
             options: {
               plugins: [
-                ['jpegtran', { progressive: true }],
+                ['jpegtran', { progressive: true, quality: 75 }],
                 [
                   'svgo',
                   { plugins: [{ name: 'removeViewBox', active: false }] },
@@ -102,6 +108,16 @@ export default (env: EnvVariables) => {
           },
         }),
       ],
+      splitChunks: {
+        chunks: 'all',
+        cacheGroups: {
+          vendor: {
+            test: /[\\/]node_modules[\\/]/,
+            name: 'vendors',
+            chunks: 'all',
+          },
+        },
+      },
     },
     resolve: {
       extensions: ['.tsx', '.ts', '.jsx', '.js'],
@@ -113,15 +129,19 @@ export default (env: EnvVariables) => {
       filename: '[name].[contenthash].js',
       path: path.resolve(__dirname, 'build'),
       clean: true,
-      // publicPath: '/Webpack-React-Practice/',
     },
     plugins: [
       new HtmlWebpackPlugin({
         template: path.resolve(__dirname, 'public', 'index.html'),
       }),
       new ForkTsCheckerWebpackPlugin(),
-      new ReactRefreshWebpackPlugin(),
-    ],
+      isProd &&
+        new MiniCssExtractPlugin({
+          filename: 'css/[name].[contenthash].css',
+          chunkFilename: 'css/[id].[contenthash].css',
+        }),
+      isDev && new ReactRefreshWebpackPlugin(),
+    ].filter(Boolean),
     devtool: isDev ? 'inline-source-map' : false,
     devServer: isDev
       ? {

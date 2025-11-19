@@ -8,7 +8,7 @@ import { RecipeCardsList } from '@/components/RecipeCardsList'
 import { BootLoader } from '@/components/BootLoader'
 import { PageTitle } from '@/components/PageTitle'
 
-export function MainPage() {
+export default function MainPage() {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const {

@@ -4,7 +4,7 @@ import { clearError } from '@/redux/recipes-slice'
 import { Container, Flex, BackgroundImage, Title, Button } from '@mantine/core'
 import Background from '@/assets/images/error-bg-image.jpg?as=webp'
 
-export function ErrorPage() {
+export default function ErrorPage() {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 

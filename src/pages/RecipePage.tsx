@@ -7,7 +7,7 @@ import { BootLoader } from '@/components/BootLoader'
 import { PageTitle } from '@/components/PageTitle'
 import { isNumId } from '@/utils/idValidation'
 
-export function RecipePage() {
+export default function RecipePage() {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const { id } = useParams<string>()

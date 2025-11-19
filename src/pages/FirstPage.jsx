@@ -1,7 +1,7 @@
-import { RecipeCardsList } from '@/components/RecipeCardsList' 
+import { RecipeCardsList } from '@/components/RecipeCardsList'
 
-export function FirstPage() {
-  return(
+export default function FirstPage() {
+  return (
     <>
       <h1>First page</h1>
     </>
