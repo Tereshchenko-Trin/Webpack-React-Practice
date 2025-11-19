@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
-import { useAppDispatch, useAppSelector } from '@/hooks/useStore'
 import { useNavigate } from 'react-router-dom'
-import { fetchRecipes } from '@/redux/recipes-slice'
+import { useGetRecipesQuery } from '@/services/api'
 import { IRecipeData } from '@/types/recipeData'
 import { RecipeCard } from '@/components/RecipeCard'
 import { RecipeCardsList } from '@/components/RecipeCardsList'
@@ -9,25 +8,13 @@ import { BootLoader } from '@/components/BootLoader'
 import { PageTitle } from '@/components/PageTitle'
 
 export default function MainPage() {
-  const dispatch = useAppDispatch()
   const navigate = useNavigate()
-  const {
-    data: recipes,
-    isLoading,
-    error,
-  } = useAppSelector((state) => state.recipes)
-
-  useEffect(() => {
-    const fetchResult = dispatch(fetchRecipes())
-
-    return () => {
-      fetchResult.abort()
-    }
-  }, [dispatch])
+  const { data: recipes, isLoading, error } = useGetRecipesQuery()
 
   useEffect(() => {
     if (error) {
-      navigate('/error', { replace: true, state: { errorMessage: error } })
+      const errorMessage = 'An API error occurred'
+      navigate('/error', { replace: true, state: { errorMessage } })
     }
   }, [error, navigate])
 

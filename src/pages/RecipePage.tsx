@@ -1,31 +1,20 @@
 import { useEffect } from 'react'
-import { useAppDispatch, useAppSelector } from '@/hooks/useStore'
 import { useParams, useNavigate } from 'react-router-dom'
-import { fetchRecipe } from '@/redux/recipe-slice'
+import { useGetRecipeByIdQuery } from '@/services/api'
 import { RecipeInfo } from '@/components/RecipeInfo'
 import { BootLoader } from '@/components/BootLoader'
 import { PageTitle } from '@/components/PageTitle'
 import { isNumId } from '@/utils/idValidation'
 
 export default function RecipePage() {
-  const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const { id } = useParams<string>()
+  const recipeId: number | undefined = isNumId(id) ? Number(id) : undefined
   const {
     data: recipe,
     isLoading,
     error,
-  } = useAppSelector((state) => state.recipe)
-
-  useEffect(() => {
-    if (isNumId(id)) {
-      const fetchResult = dispatch(fetchRecipe(Number(id)))
-
-      return () => {
-        fetchResult.abort()
-      }
-    }
-  }, [dispatch, id])
+  } = useGetRecipeByIdQuery(recipeId, { skip: recipeId === undefined })
 
   useEffect(() => {
     if (!isNumId(id)) {
@@ -35,7 +24,8 @@ export default function RecipePage() {
 
   useEffect(() => {
     if (error) {
-      navigate('/error', { replace: true, state: { errorMessage: error } })
+      const errorMessage = 'An API error occurred'
+      navigate('/error', { replace: true, state: { errorMessage } })
     }
   }, [error, navigate])
 
