@@ -5,8 +5,8 @@ import {
   RECIPE_ENDPOINT,
   MEAL_TYPE_RECIPES_ENDPOINT,
   TAG_RECIPES_ENDPOINT,
-} from '@/config/api'
-import { IRecipeData } from '@/types/commonTypes'
+} from '@/services/config'
+import { IRecipeData } from '@/types/common'
 
 interface IRecipesApiResponse {
   recipes: IRecipeData[]
@@ -26,15 +26,18 @@ export const apiSlice = createApi({
     getRecipesByMealType: builder.query<IRecipeData[], string>({
       query: (mealType) => `${MEAL_TYPE_RECIPES_ENDPOINT}${mealType}`,
       transformResponse: (response: IRecipesApiResponse) => response.recipes,
+      providesTags: ['recipes'],
     }),
 
     getRecipesByTag: builder.query<IRecipeData[], string>({
       query: (tag) => `${TAG_RECIPES_ENDPOINT}${tag}`,
       transformResponse: (response: IRecipesApiResponse) => response.recipes,
+      providesTags: ['recipes'],
     }),
 
     getRecipeById: builder.query<IRecipeData, number>({
       query: (id) => `${RECIPE_ENDPOINT}${id}`,
+      providesTags: (result, error, id) => [{ type: 'recipes', id: id }],
     }),
   }),
 })

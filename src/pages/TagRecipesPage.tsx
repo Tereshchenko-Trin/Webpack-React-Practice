@@ -1,12 +1,24 @@
 import { useParams } from 'react-router-dom'
 import { useGetRecipesByTagQuery } from '@/services/api'
-import { IRecipeData, IQueryResult } from '@/types/commonTypes'
+import { useResipesData } from '@/hooks/useRecipesData'
+import { IRecipeData, IQueryResult } from '@/types/common'
 import { RecipeCard } from '@/components/RecipeCard'
 import { RecipeCardsList } from '@/components/RecipeCardsList'
-import { RecipesPageWrapper } from '@/components/RecipesPageWrapper'
+import { BootLoader } from '@/components/BootLoader'
+import { PageTitle } from '@/components/PageTitle'
 
 export default function TagRecipesPage() {
   const { tag } = useParams<{ tag: string }>()
+  const hookArgs = {
+    queryHook: useGetRecipesByTagQuery as (
+      arg: string
+    ) => IQueryResult<IRecipeData[]>,
+    queryArg: tag,
+  }
+  const { recipes, isLoading, isNotFound } = useResipesData<
+    IRecipeData[],
+    string
+  >(hookArgs)
 
   function renderCards(recipes: IRecipeData[]) {
     return recipes.map((recipe: IRecipeData) => (
@@ -14,14 +26,9 @@ export default function TagRecipesPage() {
     ))
   }
 
-  return (
-    <RecipesPageWrapper<IRecipeData[], string>
-      queryHook={
-        useGetRecipesByTagQuery as (arg: string) => IQueryResult<IRecipeData[]>
-      }
-      queryArg={tag}
-    >
-      {(recipes) => <RecipeCardsList>{renderCards(recipes)}</RecipeCardsList>}
-    </RecipesPageWrapper>
-  )
+  if (isLoading) return <BootLoader />
+
+  if (isNotFound) return <PageTitle>Recipes not found</PageTitle>
+
+  return <RecipeCardsList>{renderCards(recipes)}</RecipeCardsList>
 }

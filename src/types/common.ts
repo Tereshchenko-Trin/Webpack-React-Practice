@@ -23,8 +23,7 @@ export interface IQueryResult<TData> {
   error: unknown
 }
 
-export interface IRecipesPageWrapperProps<TData, TArg = void> {
+export interface IUseRecipesDataArgs<TData, TArg = void> {
   queryHook: (arg: TArg) => IQueryResult<TData>
   queryArg?: TArg
-  children: (recipes: TData) => React.ReactNode
 }

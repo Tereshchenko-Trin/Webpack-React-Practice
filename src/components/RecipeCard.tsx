@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Card, Image, Group, Badge, Text } from '@mantine/core'
-import { IRecipeData } from '@/types/commonTypes'
+import { IRecipeData } from '@/types/common'
 import { ratingColor } from '@/utils/colorProperty'
 
 export function RecipeCard({
