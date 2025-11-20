@@ -1,7 +1,7 @@
 {
   "homepage": "https://tereshchenko-trin.github.io/Webpack-React-Practice",
   "name": "webpack-react-practice",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "",
   "main": "index.js",
   "scripts": {
