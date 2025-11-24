@@ -18,22 +18,6 @@ export function useResipesData<TData, TArg = void>({
     }
   }, [error, navigate])
 
-  if (error) {
-    return {
-      recipes: undefined,
-      isLoading: false,
-      isNotFound: false,
-    }
-  }
-
-  if (isLoading && !recipes) {
-    return {
-      recipes: undefined,
-      isLoading: true,
-      isNotFound: false,
-    }
-  }
-
   return {
     recipes,
     isLoading: false,
