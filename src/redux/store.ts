@@ -1,13 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { recipeReducer } from '@/redux/recipe-slice'
-import { recipesReducer } from '@/redux/recipes-slice'
+import { apiSlice } from '@/services/api'
 
 export const store = configureStore({
   reducer: {
-    recipe: recipeReducer,
-    recipes: recipesReducer
-  }
+    [apiSlice.reducerPath]: apiSlice.reducer,
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(apiSlice.middleware),
 })
-
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch

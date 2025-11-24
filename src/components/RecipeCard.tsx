@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Card, Image, Group, Badge, Text } from '@mantine/core'
-import { IRecipeData } from '@/types/recipeData'
+import { IRecipeData } from '@/types/common'
 import { ratingColor } from '@/utils/colorProperty'
 
 export function RecipeCard({
@@ -25,14 +25,24 @@ export function RecipeCard({
       shadow="sm"
       padding="md"
       component={Link}
-      to={`/${String(id)}`}
+      to={`/recipe/${String(id)}`}
     >
       <Card.Section>
         <Image src={image} h={220} alt={name} />
       </Card.Section>
-      <Group justify="space-between" mt="md" mb="sm">
-        <Text fw={500}>{name}</Text>
-        <Badge color={ratingColor(rating)}>{rating}</Badge>
+      <Group
+        justify="space-between"
+        mt="md"
+        mb="sm"
+        wrap="nowrap"
+        align="flex-start"
+      >
+        <Text fw={500} lineClamp={1}>
+          {name}
+        </Text>
+        <Badge color={ratingColor(rating)} miw={38}>
+          {rating}
+        </Badge>
       </Group>
       <Text size="sm" c="dimmed">
         Difficalty: {difficulty}
@@ -43,7 +53,7 @@ export function RecipeCard({
       <Text size="sm" c="dimmed">
         Cooking time: {cookTimeMinutes}
       </Text>
-      <Text size="sm" c="dimmed">
+      <Text size="sm" c="dimmed" lineClamp={2}>
         {renderListItems(tags)}
       </Text>
     </Card>

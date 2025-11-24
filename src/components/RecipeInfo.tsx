@@ -1,5 +1,5 @@
 import { Flex, Image, Text, List, Stack, Title } from '@mantine/core'
-import { IRecipeData } from '@/types/recipeData'
+import { IRecipeData } from '@/types/common'
 
 export function RecipeInfo({
   name,

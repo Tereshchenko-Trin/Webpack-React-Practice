@@ -1,12 +1,15 @@
+import React from 'react'
 import { createHashRouter } from 'react-router-dom'
 import { StartPage } from '@/pages/StartPage'
 import { Layout } from '@/components/Layout'
-import { MainPage } from '@/pages/MainPage'
-import { FirstPage } from '@/pages/FirstPage'
-import { SecondPage } from '@/pages/SecondPage'
-import { ThirdPage } from '@/pages/ThirdPage'
-import { RecipePage } from '@/pages/RecipePage'
-import { ErrorPage } from '@/pages/ErrorPage'
+
+const ErrorPage = React.lazy(() => import('@/pages/ErrorPage'))
+const MainPage = React.lazy(() => import('@/pages/MainPage'))
+const MealTypeRecipesPage = React.lazy(() =>
+  import('@/pages/MealTypeRecipesPage')
+)
+const TagRecipesPage = React.lazy(() => import('@/pages/TagRecipesPage'))
+const RecipePage = React.lazy(() => import('@/pages/RecipePage'))
 
 export const router = createHashRouter([
   {
@@ -21,19 +24,15 @@ export const router = createHashRouter([
         element: <MainPage />,
       },
       {
-        path: '/first',
-        element: <FirstPage />,
+        path: '/category/:mealType',
+        element: <MealTypeRecipesPage />,
       },
       {
-        path: '/second',
-        element: <SecondPage />,
+        path: '/tag/:tag',
+        element: <TagRecipesPage />,
       },
       {
-        path: '/third',
-        element: <ThirdPage />,
-      },
-      {
-        path: '/:id',
+        path: '/recipe/:id',
         element: <RecipePage />,
       },
     ],
