@@ -20,7 +20,6 @@ export interface IRecipeData {
 export interface IQueryResult<TData> {
   data: TData | undefined
   isLoading: boolean
-<<<<<<< HEAD
   isFetching: boolean
   error: unknown
 }
@@ -51,12 +50,3 @@ export interface IPaginationProps {
   totalPages: number
   handleChangePage: (page: number) => void
 }
-=======
-  error: unknown
-}
-
-export interface IUseRecipesDataArgs<TData, TArg = void> {
-  queryHook: (arg: TArg) => IQueryResult<TData>
-  queryArg?: TArg
-}
->>>>>>> origin/main

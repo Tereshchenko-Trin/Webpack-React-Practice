@@ -1,11 +1,7 @@
 {
   "homepage": "https://tereshchenko-trin.github.io/Webpack-React-Practice",
   "name": "webpack-react-practice",
-<<<<<<< HEAD
   "version": "1.7.0",
-=======
-  "version": "1.6.0",
->>>>>>> origin/main
   "description": "",
   "main": "index.js",
   "scripts": {
