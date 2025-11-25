@@ -6,7 +6,7 @@ import { Navigation } from '@/components/Navigation'
 import { Header } from '@/components/Header'
 
 export function Layout() {
-  const [opened, { toggle }] = useDisclosure()
+  const [opened, { toggle, close }] = useDisclosure()
 
   return (
     <AppShell
@@ -18,8 +18,8 @@ export function Layout() {
         collapsed: { mobile: !opened },
       }}
     >
-      <Header />
-      <Navigation />
+      <Header toggleNavbar={toggle} />
+      <Navigation closeNavbar={close} />
       <Main>
         <Outlet />
       </Main>
