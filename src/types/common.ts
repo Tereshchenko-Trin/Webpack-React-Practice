@@ -20,10 +20,33 @@ export interface IRecipeData {
 export interface IQueryResult<TData> {
   data: TData | undefined
   isLoading: boolean
+  isFetching: boolean
   error: unknown
 }
 
-export interface IUseRecipesDataArgs<TData, TArg = void> {
-  queryHook: (arg: TArg) => IQueryResult<TData>
+export interface IRecipesApiResponse {
+  recipes: IRecipeData[]
+  total: number
+  skip: number
+  limit: number
+}
+
+export interface IPaginationArgs {
+  skip?: number
+  limit?: number
+}
+
+export interface IRecipesCategoryArgs extends IPaginationArgs {
+  category: string
+}
+
+export interface IUseRecipesDataArgs<TArg = void> {
+  queryHook: (arg: TArg) => IQueryResult<IRecipesApiResponse>
   queryArg?: TArg
+}
+
+export interface IPaginationProps {
+  currentPage: number
+  totalPages: number
+  handleChangePage: (page: number) => void
 }
