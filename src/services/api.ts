@@ -5,6 +5,7 @@ import {
   RECIPE_ENDPOINT,
   MEAL_TYPE_RECIPES_ENDPOINT,
   TAG_RECIPES_ENDPOINT,
+  SEARCH_RESIPES_ENDPOINT,
 } from '@/services/config'
 import {
   IRecipeData,
@@ -40,6 +41,14 @@ export const apiSlice = createApi({
       query: (id) => `${RECIPE_ENDPOINT}${id}`,
       providesTags: (result, error, id) => [{ type: 'recipes', id: id }],
     }),
+
+    getRecipesBySearch: builder.query<IRecipeData[], IRecipesCategoryArgs>({
+      query: ({ category, skip = 0, limit = 30 }) => {
+        const encodedQuery: string = encodeURIComponent(category)
+        return `${SEARCH_RESIPES_ENDPOINT}?q=${encodedQuery}&skip=${skip}&limit=${limit}`
+      },
+      providesTags: ['recipes'],
+    }),
   }),
 })
 
@@ -48,4 +57,5 @@ export const {
   useGetRecipesByMealTypeQuery,
   useGetRecipesByTagQuery,
   useGetRecipeByIdQuery,
+  useGetRecipesBySearchQuery,
 } = apiSlice
