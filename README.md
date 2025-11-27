@@ -1,5 +1,5 @@
 # Webpack-React-Practice
-A small single-page application (SPA) for searching and browsing recipes, developed using React, Redux Toolkit and Mantine UI, built with a custom Webpack. [g](https://tereshchenko-trin.github.io/Webpack-React-Practice/).
+A small single-page application (SPA) for searching and browsing recipes, developed using React, Redux Toolkit and Mantine UI, built with a custom Webpack. [Watch it here](https://tereshchenko-trin.github.io/Webpack-React-Practice/).
 
 # Tech stack
 - **React**: The primary library for building user interfaces.
