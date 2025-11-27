@@ -1,14 +1,13 @@
 import { AppShell, Group, Burger } from '@mantine/core'
-import { useDisclosure } from '@mantine/hooks'
+import { SearchForm } from '@/components/SearchForm'
 
-export function Header() {
-  const [opened, { toggle }] = useDisclosure()
-
+export function Header({ toggleNavbar }: { toggleNavbar: () => void }) {
   return (
-    <AppShell.Header p="12">
-      <Group h="100%" px="md">
-        <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
-        Header
+    <AppShell.Header p="md" pl="28">
+      <Group h="100%" px="0" display="flex" justify="space-between">
+        <Burger onClick={toggleNavbar} hiddenFrom="sm" size="sm" />
+        Recipes
+        <SearchForm />
       </Group>
     </AppShell.Header>
   )

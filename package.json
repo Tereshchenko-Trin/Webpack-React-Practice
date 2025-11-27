@@ -1,7 +1,7 @@
 {
   "homepage": "https://tereshchenko-trin.github.io/Webpack-React-Practice",
   "name": "webpack-react-practice",
-  "version": "1.6.1",
+  "version": "1.8.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -57,6 +57,7 @@
   },
   "dependencies": {
     "@mantine/core": "~8.3.7",
+    "@mantine/form": "~8.3.9",
     "@mantine/hooks": "~8.3.7",
     "@reduxjs/toolkit": "~2.10.1",
     "axios": "~1.13.2",

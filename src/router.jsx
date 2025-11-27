@@ -9,6 +9,7 @@ const MealTypeRecipesPage = React.lazy(() =>
   import('@/pages/MealTypeRecipesPage')
 )
 const TagRecipesPage = React.lazy(() => import('@/pages/TagRecipesPage'))
+const SearchResultsPage = React.lazy(() => import('@/pages/SearchResultsPage'))
 const RecipePage = React.lazy(() => import('@/pages/RecipePage'))
 
 export const router = createHashRouter([
@@ -30,6 +31,10 @@ export const router = createHashRouter([
       {
         path: '/tag/:tag',
         element: <TagRecipesPage />,
+      },
+      {
+        path: '/search/:query',
+        element: <SearchResultsPage />,
       },
       {
         path: '/recipe/:id',

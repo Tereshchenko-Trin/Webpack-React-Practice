@@ -1,15 +1,17 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { IUseRecipesDataArgs } from '@/types/common'
+import { IUseRecipesDataArgs, IRecipeData } from '@/types/common'
 
-export function useResipesData<TData, TArg = void>({
+export function useResipesData<TArg = void>({
   queryHook,
   queryArg,
-}: IUseRecipesDataArgs<TData, TArg>) {
+}: IUseRecipesDataArgs<TArg>) {
   const navigate = useNavigate()
-  const { data: recipes, isLoading, error } = queryHook(queryArg as TArg)
-  const isNotFound =
-    !recipes || (Array.isArray(recipes) && recipes.length === 0)
+  const { data, error, isLoading, isFetching } = queryHook(queryArg as TArg)
+
+  const recipes: IRecipeData[] | undefined = data?.recipes
+
+  const isNotFound = !isLoading && (!recipes || recipes.length === 0)
 
   useEffect(() => {
     if (error) {
@@ -19,8 +21,9 @@ export function useResipesData<TData, TArg = void>({
   }, [error, navigate])
 
   return {
+    data,
     recipes,
-    isLoading: false,
+    isLoading: isLoading || isFetching,
     isNotFound,
   }
 }
